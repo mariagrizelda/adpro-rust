@@ -16,6 +16,10 @@ The status line and Content-length header are separated by a single \r\n, while 
 ![Commit 3 screen capture](/assets/images/commit3.png)
 Incorporating request validation, the server now distinguishes between valid and invalid requests, responding accordingly with the appropriate content or a 404 Not Found page. This validation process involves parsing the initial request line to determine the requested target path. Based on this path, the server selects the corresponding HTML file to serve. For instance, the root path (GET / HTTP/1.1) triggers the server to serve hello.html, while any other requests prompt the server to serve bad.html. This approach ensures tailored responses based on the nature of the client's request.
 
+## Commit 4 note
+Introducing a simulated slow request, the server now includes a conditional delay for a designated route (/sleep), demonstrating its behavior under heavy loads or during slow processing scenarios. Utilizing Rust's thread::sleep function, this feature mimics resource-intensive operations or sluggish network responses by pausing the server's execution for ten seconds upon receiving a request to the /sleep path. This modification underscores the synchronous nature of our server, where handling a slow request can impede the processing of subsequent requests, revealing a significant limitation in scalability and responsiveness.
+
+
 
 
 
