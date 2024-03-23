@@ -19,6 +19,11 @@ Incorporating request validation, the server now distinguishes between valid and
 ## Commit 4 note
 Introducing a simulated slow request, the server now includes a conditional delay for a designated route (/sleep), demonstrating its behavior under heavy loads or during slow processing scenarios. Utilizing Rust's thread::sleep function, this feature mimics resource-intensive operations or sluggish network responses by pausing the server's execution for ten seconds upon receiving a request to the /sleep path. This modification underscores the synchronous nature of our server, where handling a slow request can impede the processing of subsequent requests, revealing a significant limitation in scalability and responsiveness.
 
+## Commit 5 note
+Initially, a message passing channel facilitates communication between a pool and individual threads for task transmission. The ThreadPool creates worker threads, each with a unique identifier and a receiver obtained from the channel. Workers await tasks, execute them exclusively, and lock their receivers until completion.
+
+The ThreadPool, instantiated with workers and a sender from the channel, dispatches tasks provided via ThreadPool.execute. In the main code, a four-worker thread pool is initialized. Upon receiving a stream from TCPListener, handle_connection(stream) is sent to ThreadPool.execute, assigning HTTP request handling to a worker.
+
 
 
 
